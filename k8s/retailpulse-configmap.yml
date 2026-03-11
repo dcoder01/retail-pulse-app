@@ -1,0 +1,10 @@
+# TODO (Task 8): Create a ConfigMap for non-sensitive RetailPulse configuration.
+#
+# NOTE: Only non-sensitive values belong here (e.g. DB_HOST, server port).
+#       Credentials (DB_USERNAME, DB_PASSWORD) must come from the Secret,
+#       not this ConfigMap.
+#
+# Example non-sensitive values:
+#   DB_HOST: mysql
+#   SERVER_PORT: "8080"
+#   NOTIFICATION_FAILURE_RATE: "10"

@@ -1,0 +1,6 @@
+# TODO (Task 8): Create the MySQL headless ClusterIP Service.
+#
+# Requirements:
+#   - Namespace: retailpulse
+#   - Port 3306
+#   - ClusterIP (internal only — do not expose externally)

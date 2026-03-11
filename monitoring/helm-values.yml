@@ -1,0 +1,20 @@
+# TODO (Task 6): Fill in values for the kube-prometheus-stack Helm chart.
+#
+# IMPORTANT: Use this file instead of passing --set on the command line.
+# Passwords in --set flags are stored in your shell history and visible in
+# process listings. Always use --values for sensitive configuration.
+#
+# Install command:
+#   helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack \
+#     --namespace monitoring --create-namespace \
+#     --values monitoring/helm-values.yml
+#
+# Refer to Task 6 in the README for all required fields.
+#
+# grafana:
+#   adminUser: admin
+#   adminPassword: "changeme"
+#
+# prometheus:
+#   prometheusSpec:
+#     ...

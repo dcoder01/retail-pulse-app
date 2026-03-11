@@ -1,0 +1,23 @@
+# TODO (Task 8): Create the RetailPulse Deployment manifest.
+#
+# Requirements:
+#   - Namespace: retailpulse
+#   - replicas: 2 (minimum)
+#   - Resource requests AND limits (cpu + memory)
+#   - Separate livenessProbe  → /actuator/health/liveness  port 8080
+#   - Separate readinessProbe → /actuator/health/readiness port 8080
+#   - Credentials from Secret "mysql-credentials" via secretKeyRef
+#   - The following Prometheus pod-auto-discovery annotations on the pod template:
+#
+#       annotations:
+#         prometheus.io/scrape: "true"
+#         prometheus.io/path: "/actuator/prometheus"
+#         prometheus.io/port: "8080"
+#
+# IMPORTANT — Liveness vs Readiness:
+#   Liveness  : Kubernetes RESTARTS the container if this fails.
+#               Use to detect a deadlocked/crashed application.
+#   Readiness : Kubernetes REMOVES the pod from the load balancer if this fails.
+#               Use to detect a temporarily overloaded application.
+#
+# Refer to Task 8 in the README for the full manifest.

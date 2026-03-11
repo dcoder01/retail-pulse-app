@@ -1,0 +1,11 @@
+# TODO (Task 3): Create the Prometheus Kubernetes ConfigMap.
+#
+# This file should contain:
+#   - A ConfigMap named "prometheus-config" in namespace "monitoring"
+#   - An embedded prometheus.yml with:
+#       * global scrape_interval: 15s
+#       * rule_files referencing /etc/prometheus/rules/*.yml
+#       * alerting: pointing at alertmanager:9093
+#       * scrape_configs for: retailpulse, node-exporter, kubernetes-pods
+#
+# Refer to Task 3 in the README for the full manifest.

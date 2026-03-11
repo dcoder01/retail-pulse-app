@@ -1,0 +1,8 @@
+# TODO (Task 5): Create the Alertmanager Kubernetes ConfigMap.
+#
+# Routing requirements:
+#   - severity: none   → receiver: 'watchdog'    (repeat_interval: 5m)
+#   - severity: critical → receiver: 'critical-alerts'
+#   - default         → receiver: 'default'
+#
+# Refer to Task 5 in the README for the full manifest.

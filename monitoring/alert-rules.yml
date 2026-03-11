@@ -1,0 +1,17 @@
+# TODO (Task 4): Write Prometheus alert rules.
+#
+# Required alerts (minimum):
+#   1. Watchdog                — vector(1), severity: none
+#   2. HighOrderFailureRate    — order failure rate > 20% over 5m, severity: warning
+#   3. NotificationFailureSpike— notification failure rate > 30% over 5m, severity: warning
+#   4. LowStockCritical        — any product at zero stock, severity: critical
+#   5. AppDown                 — up{job="retailpulse"} == 0, severity: critical
+#   6. HighJvmMemory           — JVM heap > 80% of max, severity: warning
+#   7. SlowOrderProcessing     — p99 order latency > 2s, severity: warning
+#
+# Refer to Task 4 in the README for the full structure and an example rule.
+#
+# groups:
+#   - name: retailpulse.watchdog
+#     rules:
+#       ...

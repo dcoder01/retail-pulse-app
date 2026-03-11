@@ -1,0 +1,8 @@
+# TODO (Task 5): Create the Alertmanager Deployment and Service manifests.
+#
+# Requirements:
+#   - Namespace: monitoring
+#   - Mount alertmanager-config ConfigMap
+#   - Expose port 9093
+#
+# Refer to Task 5 in the README for details.

@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: retailpulse-monolith
+
+  # ── Database ──────────────────────────────────────────────────
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/retailpulse_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${DB_USERNAME:retailpulse}
+    password: ${DB_PASSWORD:retailpulse123}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: false
+
+  sql:
+    init:
+      mode: always   # runs data.sql on startup to seed products
+
+server:
+  port: 8080
+
+# ── Notification ──────────────────────────────────────────────
+notification:
+  failure-rate: 10   # % of notifications simulated as failed (0-100)
+
+# ── Actuator ──────────────────────────────────────────────────
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.retailpulse: INFO
+
+---
+# H2 profile for quick local testing without MySQL
+spring:
+  config:
+    activate:
+      on-profile: h2
+  datasource:
+    url: jdbc:h2:mem:retailpulse;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

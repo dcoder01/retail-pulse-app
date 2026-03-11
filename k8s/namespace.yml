@@ -1,0 +1,6 @@
+# TODO (Task 8): Create the retailpulse Kubernetes namespace.
+#
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: retailpulse

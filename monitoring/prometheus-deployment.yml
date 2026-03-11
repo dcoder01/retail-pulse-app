@@ -1,0 +1,9 @@
+# TODO (Task 3): Create the Prometheus Deployment and Service manifests.
+#
+# Requirements:
+#   - Namespace: monitoring
+#   - Mount the prometheus-config ConfigMap at /etc/prometheus/
+#   - Mount alert-rules ConfigMap at /etc/prometheus/rules/
+#   - Expose port 9090
+#
+# Refer to Task 3 in the README for details.

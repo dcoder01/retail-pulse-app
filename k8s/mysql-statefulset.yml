@@ -1,0 +1,15 @@
+# TODO (Task 8): Deploy MySQL as a StatefulSet (NOT a Deployment).
+#
+# IMPORTANT: MySQL is a stateful workload. A Deployment can reschedule pods to
+# different nodes, potentially losing the PersistentVolumeClaim binding and
+# corrupting data. Use StatefulSet to guarantee stable storage identity.
+#
+# Requirements:
+#   - Kind: StatefulSet
+#   - Image: mysql:8.0
+#   - Namespace: retailpulse
+#   - Credentials from Secret "mysql-credentials" via secretKeyRef
+#   - volumeClaimTemplates with 5Gi ReadWriteOnce storage
+#   - Mount at /var/lib/mysql
+#
+# Refer to Task 8 in the README for the full manifest.

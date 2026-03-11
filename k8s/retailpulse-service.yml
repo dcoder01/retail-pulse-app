@@ -1,0 +1,6 @@
+# TODO (Task 8): Create the RetailPulse Kubernetes Service.
+#
+# Requirements:
+#   - Namespace: retailpulse
+#   - Port 8080
+#   - Type: NodePort (for Minikube access) or ClusterIP (if using port-forward)
