@@ -45,7 +45,7 @@ This project brings together every topic from Days 1 through 5: Prometheus metri
 ```
 ┌─────────────────────────────────────────────┐
 │           RetailPulse Monolith              │
-│                  :8080                      │
+│                  :8888                      │
 │                                             │
 │  ┌────────────┐  ┌───────────┐  ┌────────┐ │
 │  │ /api/      │  │ /api/     │  │ /api/  │ │
@@ -53,7 +53,7 @@ This project brings together every topic from Days 1 through 5: Prometheus metri
 │  │            │  │           │  │ ication│ │
 │  └────────────┘  └───────────┘  └────────┘ │
 │                                             │
-│         Spring Boot Actuator :8080          │
+│         Spring Boot Actuator :8888          │
 │         /actuator/prometheus (to add)       │
 └─────────────────────────────────────────────┘
               │
@@ -68,7 +68,7 @@ This project brings together every topic from Days 1 through 5: Prometheus metri
 │                                                              │
 │  ┌─────────────────┐     scrapes     ┌──────────────────┐   │
 │  │  RetailPulse    │ ◄────────────── │   Prometheus     │   │
-│  │  :8080          │                 │   :9090          │   │
+│  │  :8888          │                 │   :9090          │   │
 │  │  /actuator/     │                 │                  │   │
 │  │  prometheus     │                 │  Alert Rules     │   │
 │  └─────────────────┘                 └────────┬─────────┘   │
@@ -81,7 +81,7 @@ This project brings together every topic from Days 1 through 5: Prometheus metri
 │                                                              │
 │  ┌─────────────────┐  ┌─────────────────┐                   │
 │  │  Node Exporter  │  │ kube-state-     │                   │
-│  │  :9100          │  │ metrics :8080   │                   │
+│  │  :9100          │  │ metrics :8888   │                   │
 │  └─────────────────┘  └─────────────────┘                   │
 └──────────────────────────────────────────────────────────────┘
 ```
@@ -339,8 +339,8 @@ cd retailpulse-monolith
 docker compose up --build
 
 # App will be available at:
-# http://localhost:8080/api/products
-# http://localhost:8080/actuator/health
+# http://localhost:8888/api/products
+# http://localhost:8888/actuator/health
 ```
 
 To stop:
@@ -380,7 +380,7 @@ mysql -u root -p -e "GRANT ALL ON retailpulse_db.* TO 'retailpulse'@'localhost';
 ```bash
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=h2
 
-# H2 web console: http://localhost:8080/h2-console
+# H2 web console: http://localhost:8888/h2-console
 # JDBC URL: jdbc:h2:mem:retailpulse
 # Username: sa  |  Password: (blank)
 ```
@@ -391,18 +391,18 @@ mysql -u root -p -e "GRANT ALL ON retailpulse_db.* TO 'retailpulse'@'localhost';
 
 ```bash
 # Health check
-curl http://localhost:8080/actuator/health
+curl http://localhost:8888/actuator/health
 
 # List products
-curl http://localhost:8080/api/products | python3 -m json.tool
+curl http://localhost:8888/api/products | python3 -m json.tool
 
 # Place a test order
-curl -X POST http://localhost:8080/api/orders \
+curl -X POST http://localhost:8888/api/orders \
   -H "Content-Type: application/json" \
   -d '{"customerId":"C001","productCode":"P002","quantity":3}'
 
 # Check order stats
-curl http://localhost:8080/api/orders/stats
+curl http://localhost:8888/api/orders/stats
 ```
 
 ---
@@ -480,16 +480,16 @@ management:
 > **Why not `include: "*"`?**
 > Exposing all actuator endpoints leaks environment variables (`/actuator/env`), heap dumps
 > (`/actuator/heapdump`), thread dumps, bean definitions, and in some configurations a
-> shutdown hook — to anyone who can reach port 8080. In production this is a serious
+> shutdown hook — to anyone who can reach port 8888. In production this is a serious
 > security vulnerability. Only expose the endpoints you explicitly require.
 
 **Step 1.3 — Verify:**
 ```bash
-curl http://localhost:8080/actuator/prometheus
+curl http://localhost:8888/actuator/prometheus
 # Should return Prometheus text format (lines starting with # HELP, # TYPE, etc.)
 
 # Verify that undisclosed endpoints are NOT reachable:
-curl http://localhost:8080/actuator/env
+curl http://localhost:8888/actuator/env
 # Should return 404
 ```
 
@@ -825,7 +825,7 @@ data:
       - job_name: 'retailpulse'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: ['retailpulse-service:8080']
+          - targets: ['retailpulse-service:8888']
 
       - job_name: 'node-exporter'
         static_configs:
@@ -1175,13 +1175,13 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: "/actuator/prometheus"
-        prometheus.io/port: "8080"
+        prometheus.io/port: "8888"
     spec:
       containers:
         - name: retailpulse
           image: retailpulse:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8888
           resources:
             requests:
               cpu: "250m"
@@ -1205,14 +1205,14 @@ spec:
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: 8080
+              port: 8888
             initialDelaySeconds: 30
             periodSeconds: 10
             failureThreshold: 3
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
-              port: 8080
+              port: 8888
             initialDelaySeconds: 20
             periodSeconds: 5
             failureThreshold: 3
@@ -1304,7 +1304,7 @@ During your capstone presentation, you must demonstrate a complete failure scena
 
 | Service | Default Port | Access After Port-Forward |
 |---|---|---|
-| RetailPulse App | `8080` | `http://localhost:8080` |
+| RetailPulse App | `8888` | `http://localhost:8888` |
 | Prometheus UI | `9090` | `http://localhost:9090` |
 | Alertmanager UI | `9093` | `http://localhost:9093` |
 | Grafana UI | `3000` | `http://localhost:3000` |
@@ -1321,7 +1321,7 @@ Password: admin123  (set in monitoring/helm-values.yml)
 
 ```bash
 # RetailPulse app
-kubectl port-forward svc/retailpulse-service -n retailpulse 8080:8080
+kubectl port-forward svc/retailpulse-service -n retailpulse 8888:8888
 
 # Prometheus
 kubectl port-forward svc/kube-prometheus-stack-prometheus -n monitoring 9090:9090
@@ -1353,10 +1353,10 @@ Generates realistic traffic across all three modules:
   - Direct notification sends
 
 Usage:
-    python3 load_test.py                         # Default: 60s, 10 RPS, localhost:8080
+    python3 load_test.py                         # Default: 60s, 10 RPS, localhost:8888
     python3 load_test.py --duration 120          # Run for 2 minutes
     python3 load_test.py --rps 25                # 25 requests per second
-    python3 load_test.py --host http://localhost:8080
+    python3 load_test.py --host http://localhost:8888
     python3 load_test.py --duration 300 --rps 20 --workers 5
     python3 load_test.py --chaos                 # Enable chaos mode (spike orders on P005 to drain stock fast)
 """
@@ -1571,7 +1571,7 @@ def reporter(stop_event: threading.Event, interval_sec: int = 10):
 
 def main():
     parser = argparse.ArgumentParser(description="RetailPulse Load Test")
-    parser.add_argument("--host",     default="http://localhost:8080",
+    parser.add_argument("--host",     default="http://localhost:8888",
                         help="Base URL of the RetailPulse service")
     parser.add_argument("--duration", type=int, default=60,
                         help="Test duration in seconds (default: 60)")
@@ -1660,7 +1660,7 @@ python3 load_test.py --host http://$(minikube ip):30080
 python3 load_test.py --duration 120 --rps 20 --chaos
 
 # Restore P005 stock after chaos run
-curl -X PUT http://localhost:8080/api/products/P005/stock \
+curl -X PUT http://localhost:8888/api/products/P005/stock \
   -H "Content-Type: application/json" \
   -d '{"quantity": 50}'
 ```
@@ -1670,7 +1670,7 @@ curl -X PUT http://localhost:8080/api/products/P005/stock \
 =================================================================
   RetailPulse Load Test
 =================================================================
-  Target   : http://localhost:8080
+  Target   : http://localhost:8888
   Duration : 60s
   Workers  : 3
   RPS/wkr  : 10.0  (total ~30 RPS)
