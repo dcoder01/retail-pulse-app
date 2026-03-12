@@ -6,6 +6,6 @@ RUN apk add --no-cache maven && mvn -q package -DskipTests
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY --from=build /app/target/retailpulse-monolith-1.0.0.jar app.jar
-EXPOSE 8080
+COPY --from=build /app/target/retail-pulse-app-1.0.0.jar app.jar
+EXPOSE 8888
 ENTRYPOINT ["java", "-jar", "app.jar"]

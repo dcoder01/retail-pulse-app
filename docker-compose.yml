@@ -9,7 +9,7 @@ services:
       MYSQL_USER: retailpulse
       MYSQL_PASSWORD: retailpulse123
     ports:
-      - "3306:3306"
+      - "3308:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -21,7 +21,7 @@ services:
   retailpulse:
     build: .
     ports:
-      - "8080:8080"
+      - "8888:8888"
     environment:
       DB_HOST: mysql
       DB_USERNAME: retailpulse
@@ -30,6 +30,24 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - retailpulse
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+    depends_on:
+      - prometheus
 
 volumes:
   mysql_data:
