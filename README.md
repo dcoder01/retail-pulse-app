@@ -44,7 +44,7 @@ This project brings together every topic from Days 1 through 5: Prometheus metri
 
 ```
 ┌─────────────────────────────────────────────┐
-│           RetailPulse Monolith              │
+│           Retail Pulse App              │
 │                  :8888                      │
 │                                             │
 │  ┌────────────┐  ┌───────────┐  ┌────────┐ │
@@ -121,7 +121,7 @@ This project brings together every topic from Days 1 through 5: Prometheus metri
 ### Current Structure (What You Receive)
 
 ```
-retailpulse-monolith/
+retail-pulse-app/
 ├── pom.xml                                      # Maven build file
 ├── Dockerfile                                   # Container image definition
 ├── docker-compose.yml                           # Local run with MySQL
@@ -165,7 +165,7 @@ retailpulse-monolith/
 ### Target Structure (After Your Changes)
 
 ```
-retailpulse-monolith/
+retail-pulse-app/
 ├── ... (all existing files unchanged)
 │
 ├── src/main/
@@ -333,7 +333,7 @@ All responses are wrapped in a uniform envelope:
 
 ```bash
 # Clone / unzip the project
-cd retailpulse-monolith
+cd retail-pulse-app
 
 # Build and start (MySQL + app together)
 docker compose up --build
