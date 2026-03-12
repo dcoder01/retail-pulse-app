@@ -12,10 +12,10 @@
   </parent>
 
   <groupId>com.retailpulse</groupId>
-  <artifactId>retailpulse-monolith</artifactId>
+  <artifactId>retail-pulse-app</artifactId>
   <version>1.0.0</version>
-  <name>retailpulse-monolith</name>
-  <description>RetailPulse – single monolithic RESTful web service</description>
+  <name>retail-pulse-app</name>
+  <description>RetailPulse - Java springboot RESTful web service</description>
 
   <properties>
     <java.version>17</java.version>
